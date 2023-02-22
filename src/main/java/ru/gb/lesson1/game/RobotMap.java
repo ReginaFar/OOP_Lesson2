@@ -7,35 +7,21 @@ public class RobotMap {
 
     private final int n;
     private final int m;
-    private final int maxCount;
+
     private final List<Robot> robots;
 
     public RobotMap(int n, int m) {
-        this(n, m, 5);
-    }
-
-    public RobotMap(int n, int m, int maxCount) {
         this.n = n;
         this.m = m;
         this.robots = new ArrayList<>();
-        this.maxCount = maxCount;
     }
 
     public Robot createRobot(Point point) {
-        validateParam(n, m);
         validatePoint(point);
         Robot robot = new Robot(point);
         robots.add(robot);
-        if (robots.size() > maxCount) {
-            throw new IllegalStateException("Нельзя создавать больше " + maxCount + " роботов!");
-        }
-        return robot;
-    }
 
-    private void validateParam(int n, int m) {
-        if (n < 0 || m < 0) {
-            throw new IllegalArgumentException("Некорректное значение параметра!");
-        }
+        return robot;
     }
 
     private void validatePoint(Point point) {
@@ -45,7 +31,7 @@ public class RobotMap {
 
     private void validatePointIsCorrect(Point point) {
         if (point.x() < 0 || point.x() > n || point.y() < 0 || point.y() > m) {
-            throw new IllegalStateException("Некорректное значение точки!");
+            throw new IllegalStateException("Некоректное значение точки!");
         }
     }
 
@@ -72,12 +58,6 @@ public class RobotMap {
 
         public void changeDirection(Direction direction) {
             this.direction = direction;
-        }
-
-        public void move(int steps) {
-            for (int i = 0; i < steps; i++) {
-                move();
-            }
         }
 
         public void move() {
